@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Clock, MapPin, BookOpen, Music, Target, DollarSign, Users, CreditCard, MessageCircle, AlertTriangle, Sparkles, Heart, Zap, CheckCircle2, ArrowUp } from 'lucide-react';
+import { Calendar, Clock, MapPin, BookOpen, Music, Target, DollarSign, Users, CreditCard, MessageCircle, AlertTriangle, Sparkles, Heart, Zap, CheckCircle2, ArrowUp, Volume2, VolumeX } from 'lucide-react';
 
 const BackgroundEffects = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -12,6 +12,7 @@ const BackgroundEffects = () => (
 
 export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +68,7 @@ export default function App() {
           {/* Video Background */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center bg-slate-900">
             <iframe
-              src="https://www.youtube.com/embed/KQxrz86muh8?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=KQxrz86muh8&playsinline=1"
+              src={`https://www.youtube.com/embed/KQxrz86muh8?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&controls=0&showinfo=0&rel=0&playlist=KQxrz86muh8&playsinline=1`}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] sm:w-[200%] sm:h-[200%] md:w-[150%] md:h-[150%] max-w-none"
               style={{ border: 0, pointerEvents: 'none' }}
               allow="autoplay; encrypted-media"
@@ -78,6 +79,15 @@ export default function App() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-transparent"></div>
           </div>
+
+          {/* Sound Toggle Button */}
+          <button
+            onClick={() => setIsMuted(!isMuted)}
+            className="absolute bottom-6 right-6 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-md border border-white/20 transition-all focus:outline-none focus:ring-2 focus:ring-pink-400"
+            aria-label={isMuted ? "소리 켜기" : "소리 끄기"}
+          >
+            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          </button>
 
           <div className="relative z-10 text-center space-y-4 sm:space-y-6 py-16 sm:py-24 md:py-32 px-4 max-w-4xl mx-auto">
             <motion.div 
